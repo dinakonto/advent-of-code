@@ -1,5 +1,24 @@
+/*
+ * Challenge from Advent of Code
+ * https://adventofcode.com/2019/day/1
+ *
+ */
+
+/* TO DO
+ * Part 2:
+ *    For each module mass, calculate its fuel and add it to the total.
+ *    Then, treat the fuel amount you just calculated as the input mass
+ *    and repeat the process, continuing until a fuel requirement is zero
+ *    or negative.
+ *
+ *    What is the sum of the fuel requirements for all of the modules
+ *    on your spacecraft when also taking into account the mass of the
+ *    added fuel? (Calculate the fuel requirements for each module separately,
+ *    then add them all up at the end.)
+ */
+
 var totalFuel = 0;
-var massInputs = [
+var moduleMass = [
   78207,
   89869,
   145449,
@@ -102,16 +121,16 @@ var massInputs = [
   115214
 ]
 
-// Run the calculation on one input
+// Function to run the calculation on a single input
 function calcFuel(mass) {
   var fuel = Math.floor(mass / 3) - 2;
   return fuel;
 }
 
 // Loop through the array
-for (var i = 0; i < massInputs.length; i++) {
+for (var x = 0; x < moduleMass.length; x++) {
   // Run calcFuel for each number
-  var singleCalc = calcFuel(massInputs[i]);
+  var singleCalc = calcFuel(moduleMass[x]);
   // Add this result to the total
   totalFuel += singleCalc;
 }
