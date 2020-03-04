@@ -18,8 +18,7 @@
  */
 
 var totalFuel = 0;
-var singleCalc = 0;
-var moduleMass = [ 100756
+var moduleMass = [ 100756, 1969
   // 78207,89869,145449,73634,78681,81375,131482,126998,50801,115839,77949,53203,146099,56912,59925,132631,115087,89543,123234,108110,109873,81923,124264,87981,106554,147239,73615,72609,129684,84175,64915,98124,74391,55211,120961,119116,148275,89605,115986,120547,50299,137922,78906,145216,80424,122610,61408,97573,127533,116820,76068,77400,117943,85231,102442,62002,58761,56479,98200,85971,73985,88908,82719,120604,83378,88241,122574,76731,99810,137548,102617,105352,137585,83238,118817,149419,107629,6893,56049,70693,83844,76413,87021,90259,124289,102527,139625,106607,120241,101098,66142,96591,82277,142297,116671,131881,94861,79741,73561,115214
 ]
 
@@ -43,24 +42,27 @@ function calcFuel(mass) {
 
 // STEPS FOR PART 2
 console.log("totalFuel = " + totalFuel);
-// for each module moduleMass
+// for each element in the moduleMass array
 for (var x = 0; x < moduleMass.length; x++) {
+  console.log("CALCULATING FOR ITEM " + x + ": " + moduleMass[x])
   // calcFuel on the moduleMass
-  singleCalc = calcFuel(moduleMass[x]);
-  console.log("singleCalc = " + singleCalc);
-  // add that singleCalc to the total
-  totalFuel += singleCalc;
+  var moduleFuel = calcFuel(moduleMass[x]);
+  console.log("moduleFuel = " + moduleFuel);
+  // add that moduleFuel to the totalFuel
+  totalFuel += moduleFuel;
   console.log("totalFuel now = " + totalFuel);
+  var extraFuel = moduleFuel;
+  console.log("extraFuel now = " + extraFuel + " and should match moduleFuel: " + moduleFuel);
   //LOOP:
   // if result of calcFuel on input >0
-  while (calcFuel(singleCalc) > 0) {
-    console.log("singleCalc " + singleCalc + " is greater than zero")
+  while (calcFuel(extraFuel) > 0) {
+    console.log("extraFuel " + extraFuel + " is greater than zero")
     // add result to the total
-    totalFuel += calcFuel(singleCalc);
+    totalFuel += calcFuel(extraFuel);
     console.log("totalFuel now = " + totalFuel);
     // result then becomes the new input
-    singleCalc = calcFuel(singleCalc);
-    console.log("singleCalc now = " + singleCalc);
+    extraFuel = calcFuel(extraFuel);
+    console.log("extraFuel now = " + extraFuel);
   };
 };
 console.log("Total fuel is: " + totalFuel);
