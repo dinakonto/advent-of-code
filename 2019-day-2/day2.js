@@ -7,6 +7,10 @@
 // ULTIMATE QUESTION:
 // What value is left at position 0 after the program halts?
 
+// TO DO:
+// Something is up - second calculation always places the result one spot too high.
+// Could be conflict between x values for counting vs displaying value? idk.
+
 // Create an array to hold the intCode program
 let intCode = [
   // REAL VALUES
@@ -27,34 +31,62 @@ let intCode = [
         //
         // 1,8,4,5,2,5,7,9,99,6,4,3,5,6,4,7,9,6,6,3,3
         //
-        1,9,10,3,2,3,11,0,99,30,40,50
+      //0,1, 2,3,4,5, 6,7, 8, 9,10,11
+        1,9,10,3,1,3,11,0,99,30,40,50
 
 ];
 
 
-// `a` = the index of the Opcode. It jumps 4 each loop.
-for( let a = 0; a < intCode.length; a += 4) {
+// `x` = the index of the Opcode. It jumps 4 each loop.
+for( let x = 0; x < intCode.length; x += 4) {
+
   // If the Opcode is 1
-  if (intCode[a] === 1) {
-    // Do this
+  if (intCode[x] === 1) {
+
+    console.log(`Program reads: ${intCode}`);
+    // Add the numbers together
+    let sum = intCode[intCode[x+1]] + intCode[intCode[x+2]];
+    console.log(`Result is: ${sum}`);
+    // And put the result in the right spot
+    intCode.splice(intCode[intCode[x+3]], 1, sum);
+    console.log(`Program reads: ${intCode}
+      `);
+
+    // Description here
     console.log(
-      `${intCode[a]} is the first Opcode.
-      So we need to ADD the numbers at ${intCode[a+1]} (${intCode[intCode[a+1]]}) and ${intCode[a+2]} (${intCode[intCode[a+2]]}) together
-      and put the result where ${intCode[intCode[a+3]]} is.`);
+      `${intCode[x]} is the first Opcode.
+      So we need to ADD the numbers at index ${intCode[x+1]} (${intCode[intCode[x+1]]}) and index ${intCode[x+2]} (${intCode[intCode[x+2]]}) together
+      and put the result (${sum}) at index ${intCode[x+3]} (${intCode[intCode[x+3]]}).
+      `);
   }
+
   //If the Opcode is 2
-  else if (intCode[a] === 2) {
-    // Do this
-    console.log(`${intCode[a]} is the second Opcode.
-      So we need to MULTIPLY the numbers at ${intCode[a+1]} (${intCode[intCode[a+1]]}) and ${intCode[a+2]} (${intCode[intCode[a+2]]}) together
-      and put the result where ${intCode[intCode[a+3]]} is.`);
+  else if (intCode[x] === 2) {
+    console.log(`Program reads: ${intCode}`);
+    // Add the numbers together
+    let sum = intCode[intCode[x+1]] * intCode[intCode[x+2]];
+    console.log(`Result is: ${sum}`);
+    // And put the result in the right spot
+    intCode.splice(intCode[intCode[x+3]], 1, sum);
+    console.log(
+`starting at ${intCode[intCode[x+3]]}
+replace 1 element
+with ${sum}`);
+    console.log(`Program reads: ${intCode}
+      `);
+    // Description here
+    console.log(`${intCode[x]} is the second Opcode.
+      So we need to MULTIPLY the numbers at index ${intCode[x+1]} (${intCode[intCode[x+1]]}) and index ${intCode[x+2]} (${intCode[intCode[x+2]]}) together
+      and put the result at index ${intCode[x+3]} (${intCode[intCode[x+3]]}).`);
   }
+
   // If the Opcode is 99
-  else if (intCode[a] === 99) {
+  else if (intCode[x] === 99) {
     // Do this
-    console.log(`${intCode[a]} is the third Opcode.
+    console.log(`${intCode[x]} is the third Opcode.
       So we need to stop the program.`);
   }
+
   // If it's something else weird
   else {
     // Do this
